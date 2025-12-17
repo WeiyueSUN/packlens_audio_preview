@@ -55,6 +55,42 @@ packages/
 └── web/             # React-based web interface
 ```
 
+### Build
+
+#### Prerequisites
+
+- Node.js >= 18
+- npm >= 9
+
+#### Install Dependencies
+
+```bash
+npm install
+```
+
+#### Build VSIX Extension
+
+```bash
+# Build all packages and create vsix
+npm run build
+
+# Package vsix only (after build)
+cd packages/vsc
+npx vsce package
+```
+
+The `.vsix` file will be generated at:
+
+```
+packages/vsc/msgpack-audio-viewer-<version>.vsix
+```
+
+#### Run Web App (Development)
+
+```bash
+npm run web:dev
+```
+
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
