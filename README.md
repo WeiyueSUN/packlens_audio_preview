@@ -1,6 +1,6 @@
 # MsgPack Audio Viewer
 
-**A VS Code / Cursor extension for viewing MessagePack files with embedded audio preview.**
+**View MessagePack files with inline audio playback — ideal for audio LLM training data inspection.**
 
 ![screenshot](https://raw.githubusercontent.com/WeiyueSUN/msgpack-audio-viewer/main/media/screenshot.png)
 

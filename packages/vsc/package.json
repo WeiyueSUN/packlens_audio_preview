@@ -1,8 +1,8 @@
 {
   "name": "msgpack-audio-viewer",
   "displayName": "MsgPack Audio Viewer",
-  "description": "Decode and search within MessagePack files with built-in audio preview support",
-  "version": "1.0.1",
+  "description": "View MessagePack files with inline audio playback - ideal for audio LLM training data",
+  "version": "1.0.2",
   "engines": {
     "vscode": "^1.99.0"
   },
