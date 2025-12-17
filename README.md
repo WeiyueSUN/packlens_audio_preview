@@ -25,22 +25,22 @@ MsgPack Audio Viewer is a Visual Studio Code extension and web application desig
 
 ## Usage
 
+### Example
+
+An example file is provided in `examples/example_audio_qa.msgpack`, demonstrating an audio chat QA scenario with a violin-like tone (440Hz A4).
+
 ### Visual Studio Code Extension
 
-1. Open any `.msgpack` file in VS Code.
+1. Open any `.msgpack` file in VS Code (try `examples/example_audio_qa.msgpack`).
 2. The file will automatically open in the MsgPack Audio Viewer.
 3. Explore the decoded MessagePack data using the interactive interface.
-4. If the file contains audio data, you'll see an audio player with waveform visualization.
-
-![demo-vsc](media/vsc-demo.gif)
+4. If the file contains audio data, you'll see an audio player with progress bar.
 
 ### Web Application
 
 1. Open the web interface (run `npm run web:dev` from the project root).
 2. Upload your `.msgpack` file.
 3. Use the search and visualization tools to analyze your data.
-
-![demo-web](media/web-demo.gif)
 
 ## Development
 
@@ -107,3 +107,5 @@ This project is based on:
 - [vscode-audio-preview](https://github.com/sukumo28/vscode-audio-preview) by sukumo28 - Audio preview implementation reference
 
 Both projects are licensed under MIT License.
+
+Developed during employment at [ModelBest](https://modelbest.cn).
