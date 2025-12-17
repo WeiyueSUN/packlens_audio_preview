@@ -62,3 +62,11 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ## Changelog
 
 See [CHANGELOG.md](CHANGELOG.md) for release notes and version history.
+
+## Acknowledgments
+
+This project is based on:
+- [PackLens](https://github.com/PejmanNik/packlens) by Pejman - MessagePack viewer foundation
+- [vscode-audio-preview](https://github.com/sukumo28/vscode-audio-preview) by sukumo28 - Audio preview implementation reference
+
+Both projects are licensed under MIT License.
