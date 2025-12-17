@@ -2,93 +2,103 @@
 
 ![logo](https://raw.githubusercontent.com/WeiyueSUN/msgpack-audio-viewer/main/media/icon.png)
 
-MsgPack Audio Viewer is a Visual Studio Code extension and web application designed for decoding and searching within MessagePack binary files, with built-in audio preview support. It provides an intuitive interface for exploring and analyzing data efficiently, especially for MessagePack files containing audio data.
+**A VS Code / Cursor extension for viewing MessagePack files with embedded audio preview.**
+
+![screenshot](https://raw.githubusercontent.com/WeiyueSUN/msgpack-audio-viewer/main/media/screenshot.png)
+
+## Why This Tool?
+
+This extension is specifically designed for **text-audio multimodal training data inspection**, especially for teams working on **audio LLM training**.
+
+### The Problem
+
+When building audio chat datasets for model training, you need to store text and audio together. Traditional approaches have limitations:
+
+| Approach | Issue |
+|----------|-------|
+| **Separate files** | Text and audio stored separately, not atomic, hard to manage |
+| **JSON + Base64** | Audio must be encoded as Base64, bloated and unreadable |
+| **Custom binary formats** | Requires specialized tools, not lightweight |
+
+### The Solution: MessagePack + This Viewer
+
+**MessagePack** provides the best of both worlds:
+- ✅ JSON-like structure (human-readable keys, nested objects)
+- ✅ Native binary support (embed audio bytes directly, no Base64)
+- ✅ Compact and efficient
+
+**This extension** lets you:
+- 📂 Open `.msgpack` files directly in VS Code / Cursor
+- 🎵 **Play embedded audio inline** without extracting files
+- 🔍 Browse the data structure like JSON
+
+**No similar tool exists in the market.** This is the only viewer that supports atomic text+audio data inspection.
 
 ## Features
 
-- 📃 **MessagePack Decoding**: Automatically decode and visualize MessagePack (.msgpack) files with ease.
-- 🎵 **Audio Preview**: Built-in audio playback with progress bar for audio data in MessagePack files.
-- 🔍 **Advanced Search**: Perform custom searches and map data using JavaScript code.
-- 🔄 **Streaming Support**: Efficiently stream and process large MessagePack files without performance bottlenecks.
-- 🎯 **Custom Editor**: Seamlessly integrates with VS Code's editor system for a native experience.
-- ⚡ **WASM Decoder**: High-performance audio decoding using WebAssembly for MP3 and other formats.
+- 📃 **MessagePack Decoding**: Automatically decode and visualize MessagePack (.msgpack) files
+- 🎵 **Inline Audio Player**: Play embedded audio data directly in the viewer
+- 🔍 **Advanced Search**: Filter and transform data using JavaScript expressions
+- 🔄 **Streaming Support**: Handle large files efficiently
+- ⚡ **WASM Decoder**: High-performance audio decoding (MP3/FLAC/OGG via WebAssembly)
 
 ## Installation
 
 ### Manual Installation
 
-1. Download the latest `.vsix` file from the releases.
-2. Open Visual Studio Code.
-3. Navigate to the Extensions view (`Ctrl+Shift+X`).
-4. Click the `...` menu and select "Install from VSIX...".
-5. Select the downloaded `.vsix` file.
+1. Download the latest `.vsix` file from the [releases](https://github.com/WeiyueSUN/msgpack-audio-viewer/releases).
+2. In VS Code / Cursor: `Ctrl+Shift+X` → `...` → "Install from VSIX..."
+3. Select the downloaded `.vsix` file.
 
 ## Usage
 
-### Example
+### Quick Start
 
-An example file is provided in `examples/example_audio_qa.msgpack`, demonstrating an audio chat QA scenario with a violin-like tone (440Hz A4).
+1. Open any `.msgpack` file (try `examples/example_audio_qa.msgpack`)
+2. The file opens in MsgPack Audio Viewer automatically
+3. Browse the JSON-like structure
+4. Click ▶ to play any embedded audio
 
-### Visual Studio Code Extension
+### Example Data Structure
 
-1. Open any `.msgpack` file in VS Code (try `examples/example_audio_qa.msgpack`).
-2. The file will automatically open in the MsgPack Audio Viewer.
-3. Explore the decoded MessagePack data using the interactive interface.
-4. If the file contains audio data, you'll see an audio player with progress bar.
+```json
+{
+  "id": "audio_qa_001",
+  "messages": [
+    { "role": "user", "content": [
+        { "type": "text", "text": "Describe this audio" },
+        { "type": "audio", "audio": <bytes>, "format": "wav" }
+    ]},
+    { "role": "assistant", "content": "This is a violin tone..." }
+  ]
+}
+```
 
-![screenshot](https://raw.githubusercontent.com/WeiyueSUN/msgpack-audio-viewer/main/media/screenshot.png)
-
-### Web Application
-
-1. Open the web interface (run `npm run web:dev` from the project root).
-2. Upload your `.msgpack` file.
-3. Use the search and visualization tools to analyze your data.
+The `audio` field contains raw bytes — **no Base64, no external files**.
 
 ## Development
-
-This project uses a monorepo structure with three main packages:
 
 ### Project Structure
 
 ```
 packages/
-├── common/          # Shared types and utilities for decoding and processing files
-├── vsc/             # Visual Studio Code extension
-└── web/             # React-based web interface
+├── common/    # Shared types and utilities
+├── vsc/       # VS Code extension
+└── web/       # React-based web interface
 ```
 
 ### Build
 
-#### Prerequisites
-
-- Node.js >= 18
-- npm >= 9
-
-#### Install Dependencies
-
 ```bash
 npm install
-```
-
-#### Build VSIX Extension
-
-```bash
-# Build all packages (compiles to packages/vsc/dist/)
 npm run build
 
-# Package vsix (run in packages/vsc/)
+# Package vsix
 cd packages/vsc
 npx vsce package
 ```
 
-**Build outputs:**
-
-| Output | Location |
-|--------|----------|
-| Compiled JS | `packages/vsc/dist/extension.js` |
-| VSIX package | `packages/vsc/msgpack-audio-viewer-<version>.vsix` |
-
-#### Run Web App (Development)
+### Run Web App
 
 ```bash
 npm run web:dev
@@ -96,18 +106,12 @@ npm run web:dev
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-## Changelog
-
-See [CHANGELOG.md](CHANGELOG.md) for release notes and version history.
+MIT License. See [LICENSE](LICENSE) for details.
 
 ## Acknowledgments
 
-This project is based on:
+Based on:
 - [PackLens](https://github.com/PejmanNik/packlens) by Pejman - MessagePack viewer foundation
-- [vscode-audio-preview](https://github.com/sukumo28/vscode-audio-preview) by sukumo28 - Audio preview implementation reference
-
-Both projects are licensed under MIT License.
+- [vscode-audio-preview](https://github.com/sukumo28/vscode-audio-preview) by sukumo28 - Audio preview reference
 
 Developed during employment at [ModelBest](https://modelbest.cn).
