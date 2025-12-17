@@ -107,7 +107,7 @@ def create_audio_qa_example():
         },
         {
             "role": "assistant", 
-            "content": "This audio contains a sustained tone at approximately 440 Hz (A4 pitch). The sound has characteristics of a bowed string instrument, likely a violin, with a rich harmonic structure including prominent overtones. The tone has a smooth attack and gradual release, typical of legato bowing technique."
+            "content": "This audio contains a sustained tone at approximately 440 Hz (A4 pitch).\n\nKey characteristics:\n- Instrument: Bowed string instrument (likely violin)\n- Harmonic structure: Rich overtones\n- Attack: Smooth\n- Release: Gradual\n\nThe tone is typical of legato bowing technique."
         }
     ]
     

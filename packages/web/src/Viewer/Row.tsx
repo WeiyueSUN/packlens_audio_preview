@@ -38,10 +38,13 @@ function customizeNode(props: {
     return <BytesPlaceholder length={node.length} />;
   }
   
-  // 检测包含换行符的字符串 - 使用 pre-wrap 渲染
+  // 检测包含换行符的字符串 - 使用 pre-wrap 渲染，保留 json-view 字符串颜色
   if (typeof node === 'string' && node.includes('\n')) {
     return (
-      <span style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
+      <span 
+        className="json-view--string"
+        style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}
+      >
         "{node}"
       </span>
     );
