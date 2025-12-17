@@ -71,19 +71,20 @@ npm install
 #### Build VSIX Extension
 
 ```bash
-# Build all packages and create vsix
+# Build all packages (compiles to packages/vsc/dist/)
 npm run build
 
-# Package vsix only (after build)
+# Package vsix (run in packages/vsc/)
 cd packages/vsc
 npx vsce package
 ```
 
-The `.vsix` file will be generated at:
+**Build outputs:**
 
-```
-packages/vsc/msgpack-audio-viewer-<version>.vsix
-```
+| Output | Location |
+|--------|----------|
+| Compiled JS | `packages/vsc/dist/extension.js` |
+| VSIX package | `packages/vsc/msgpack-audio-viewer-<version>.vsix` |
 
 #### Run Web App (Development)
 
