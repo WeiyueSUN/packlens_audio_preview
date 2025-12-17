@@ -24,7 +24,7 @@
   "publisher": "sunweiyue",
   "repository": {
     "type": "git",
-    "url": "https://github.com/WeiyueSUN/packlens_audio_preview"
+    "url": "https://github.com/WeiyueSUN/msgpack-audio-viewer"
   },
   "icon": "icon.png",
   "license": "MIT",
