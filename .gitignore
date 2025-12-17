@@ -1,34 +1,14 @@
 node_modules
 dist
 **/*.vsix
-packages/vsc/README.md
-packages/vsc/CHANGELOG.md
-site_packages
 
 # macOS
 .DS_Store
 **/.DS_Store
 
-# 测试文件
-test_*.msgpack
-test_*.html
-test.wav
-test_*.py
-test_*.js
+# Archived files (dev notes, test files, scripts)
+archived/
 
-# 临时脚本
-*.py
-benchmark_copy_methods.js
-
-# 版本开发笔记（不需要提交）
-v*.md
-AUDIO_PREVIEW_FEATURE.md
-BENCHMARK_RESULTS.md
-BUGFIX_*.md
-FINAL_*.md
-HOW_TO_TEST.md
-PACKLENS_*.md
-SOLUTION.md
-TEST_*.md
-WASM_*.md
-V3.0_*.md
+# Build artifacts
+packages/vsc/README.md
+packages/vsc/CHANGELOG.md
