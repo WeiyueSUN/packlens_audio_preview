@@ -11,12 +11,15 @@ import BytesPlaceholder from "./BytesPlaceholder";
 
 export interface RowProps {
   data: DataType;
+  collapsed: number | boolean;
 }
 
 /**
  * 自定义节点渲染
  * 
- * 处理 transformBytesData 生成的 marker 对象
+ * 处理：
+ * 1. transformBytesData 生成的 marker 对象（音频/字节）
+ * 2. 包含换行符的字符串（使用 pre-wrap 渲染）
  */
 function customizeNode(props: {
   node: unknown;
@@ -33,6 +36,15 @@ function customizeNode(props: {
   // 检测普通字节 marker - 显示占位符
   if (isBytesMarker(node)) {
     return <BytesPlaceholder length={node.length} />;
+  }
+  
+  // 检测包含换行符的字符串 - 使用 pre-wrap 渲染
+  if (typeof node === 'string' && node.includes('\n')) {
+    return (
+      <span style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
+        "{node}"
+      </span>
+    );
   }
   
   return undefined;
@@ -55,7 +67,7 @@ function customizeNode(props: {
  * 
  * 性能提升：20s → <1s (95%+ 提升)
  */
-export default function Row({ data }: RowProps) {
+export default function Row({ data, collapsed }: RowProps) {
   const theme = useHostTheme();
 
   // ✅ 预处理：检测并替换 Uint8Array
@@ -87,12 +99,12 @@ export default function Row({ data }: RowProps) {
   return (
     <JsonView
       src={transformedData}  // ← 已处理：大 Uint8Array 已替换为小 marker
-      collapsed={5}
+      collapsed={collapsed}
       displayArrayIndex
       displaySize
       theme="default"
       dark={theme.isDark}
-      customizeNode={customizeNode}  // ← 渲染 marker 对象
+      customizeNode={customizeNode}  // ← 渲染 marker 对象 + 换行文本
     ></JsonView>
   );
 }

@@ -40,6 +40,7 @@ export default function Viewer() {
 
   const [readerState, setReaderState] = useState<ReaderState>(hostState);
   const [parserScript, setParserScript] = useState<string>("");
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   console.debug(clientPrefix, "state", readerState);
 
@@ -132,12 +133,15 @@ export default function Viewer() {
         defaultValue={parserScript}
         onChange={(script) => setParserScript(script)}
         totalEntities={readerState.totalDecodedEntities}
+        isExpanded={isExpanded}
+        onToggleExpand={() => setIsExpanded(!isExpanded)}
       />
       {readerState.pageState.maxIndex > 0 && (
         <RowList
           pageState={readerState.pageState}
           totalEntities={readerState.totalEntities}
           loadData={loadData}
+          collapsed={isExpanded ? false : 5}
         />
       )}
     </Container>

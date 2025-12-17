@@ -23,12 +23,14 @@ export interface RowListProps {
   pageState: PageState;
   totalEntities: number;
   loadData: (index: number) => void;
+  collapsed: number | boolean;
 }
 
 export default function RowList({
   pageState,
   totalEntities,
   loadData,
+  collapsed,
 }: RowListProps) {
   const parentRef = useRef<HTMLDivElement>(null);
   const virtualizer = useVirtualizer({
@@ -109,6 +111,7 @@ export default function RowList({
             <Row
               key={virtualItem.key}
               data={pageState.data.get(virtualItem.index)!}
+              collapsed={collapsed}
             />
           </div>
         ))}

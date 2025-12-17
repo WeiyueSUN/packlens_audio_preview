@@ -9,6 +9,8 @@ export interface SearchboxProps {
   onChange: (script: string) => void;
   defaultValue: string;
   totalEntities: number;
+  isExpanded: boolean;
+  onToggleExpand: () => void;
 }
 
 const Container = styled.div`
@@ -29,10 +31,27 @@ const InputWrapper = styled.div`
   }
 `;
 
+const ExpandButton = styled.button`
+  background: var(--vscode-button-secondaryBackground);
+  color: var(--vscode-button-secondaryForeground);
+  border: none;
+  padding: 0 0.75rem;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  border-radius: 2px;
+  font-size: 12px;
+  white-space: nowrap;
+  &:hover {
+    background: var(--vscode-button-secondaryHoverBackground);
+  }
+`;
+
 export default function Searchbox({
   totalEntities: itemsCount,
   onChange,
   defaultValue,
+  isExpanded,
+  onToggleExpand,
 }: SearchboxProps) {
   const inputRef = useRef<VscodeTextfield>(null);
 
@@ -73,6 +92,9 @@ export default function Searchbox({
           />
         </vscode-textfield>
       </InputWrapper>
+      <ExpandButton onClick={onToggleExpand}>
+        {isExpanded ? "▼ Collapse" : "▶ Expand All"}
+      </ExpandButton>
     </Container>
   );
 }
