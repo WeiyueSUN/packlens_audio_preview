@@ -1,6 +1,6 @@
 # MsgPack Audio Viewer
 
-![logo](media/icon.png)
+![logo](https://raw.githubusercontent.com/WeiyueSUN/msgpack-audio-viewer/main/media/icon.png)
 
 MsgPack Audio Viewer is a Visual Studio Code extension and web application designed for decoding and searching within MessagePack binary files, with built-in audio preview support. It provides an intuitive interface for exploring and analyzing data efficiently, especially for MessagePack files containing audio data.
 
@@ -35,6 +35,8 @@ An example file is provided in `examples/example_audio_qa.msgpack`, demonstratin
 2. The file will automatically open in the MsgPack Audio Viewer.
 3. Explore the decoded MessagePack data using the interactive interface.
 4. If the file contains audio data, you'll see an audio player with progress bar.
+
+![screenshot](https://raw.githubusercontent.com/WeiyueSUN/msgpack-audio-viewer/main/media/screenshot.png)
 
 ### Web Application
 
