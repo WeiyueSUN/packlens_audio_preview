@@ -2,7 +2,7 @@
   "name": "msgpack-audio-viewer",
   "displayName": "MsgPack Audio Viewer",
   "description": "Decode and search within MessagePack files with built-in audio preview support",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "engines": {
     "vscode": "^1.99.0"
   },
@@ -31,6 +31,18 @@
   "activationEvents": [],
   "main": "./dist/extension.js",
   "contributes": {
+    "languages": [
+      {
+        "id": "msgpack",
+        "aliases": [
+          "MessagePack",
+          "MsgPack"
+        ],
+        "extensions": [
+          ".msgpack"
+        ]
+      }
+    ],
     "customEditors": [
       {
         "viewType": "msgpack-audio-viewer.msgpack",

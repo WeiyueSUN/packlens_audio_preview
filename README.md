@@ -1,7 +1,5 @@
 # MsgPack Audio Viewer
 
-![logo](https://raw.githubusercontent.com/WeiyueSUN/msgpack-audio-viewer/main/media/icon.png)
-
 **A VS Code / Cursor extension for viewing MessagePack files with embedded audio preview.**
 
 ![screenshot](https://raw.githubusercontent.com/WeiyueSUN/msgpack-audio-viewer/main/media/screenshot.png)
@@ -44,11 +42,16 @@ When building audio chat datasets for model training, you need to store text and
 
 ## Installation
 
-### Manual Installation
+### Cursor IDE ✅
 
-1. Download the latest `.vsix` file from the [releases](https://github.com/WeiyueSUN/msgpack-audio-viewer/releases).
-2. In VS Code / Cursor: `Ctrl+Shift+X` → `...` → "Install from VSIX..."
-3. Select the downloaded `.vsix` file.
+Search `msgpack-audio-viewer` in Cursor Extensions (`Cmd+Shift+X`) and install.
+
+Or install from [Open VSX Registry](https://open-vsx.org/extension/sunweiyue/msgpack-audio-viewer).
+
+### VS Code
+
+Download the `.vsix` from [releases](https://github.com/WeiyueSUN/msgpack-audio-viewer/releases), then:
+`Cmd+Shift+X` → `...` → "Install from VSIX..."
 
 ## Usage
 
@@ -59,22 +62,28 @@ When building audio chat datasets for model training, you need to store text and
 3. Browse the JSON-like structure
 4. Click ▶ to play any embedded audio
 
-### Example Data Structure
+### Create Your Own Audio Data
 
-```json
-{
-  "id": "audio_qa_001",
-  "messages": [
-    { "role": "user", "content": [
-        { "type": "text", "text": "Describe this audio" },
-        { "type": "audio", "audio": <bytes>, "format": "wav" }
-    ]},
-    { "role": "assistant", "content": "This is a violin tone..." }
-  ]
+```python
+import msgspec
+
+data = {
+    "id": "audio_qa_001",
+    "type": "audio_chat",
+    "messages": [
+        {"role": "user", "content": [
+            {"type": "text", "text": "Describe this audio"},
+            {"type": "audio", "audio": open("audio.wav", "rb").read(), "format": "wav"}
+        ]},
+        {"role": "assistant", "content": "This is a violin tone at 440Hz..."}
+    ]
 }
+
+with open("example.msgpack", "wb") as f:
+    f.write(msgspec.msgpack.encode(data))
 ```
 
-The `audio` field contains raw bytes — **no Base64, no external files**.
+The `audio` field contains **raw bytes** — no Base64, no external files.
 
 ## Development
 

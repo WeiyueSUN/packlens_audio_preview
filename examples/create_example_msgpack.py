@@ -4,10 +4,9 @@
 """
 
 import numpy as np
-import msgpack
+import msgspec
 import wave
 import io
-import struct
 
 def generate_violin_tone(frequency=440, duration=2.0, sample_rate=44100):
     """
@@ -136,13 +135,13 @@ def main():
     # 保存为 msgpack
     output_path = "example_audio_qa.msgpack"
     with open(output_path, 'wb') as f:
-        msgpack.pack(example_data, f)
+        f.write(msgspec.msgpack.encode(example_data))
     
     print(f"\n✅ 已保存到: {output_path}")
     
     # 验证
     with open(output_path, 'rb') as f:
-        loaded = msgpack.unpack(f, raw=False)
+        loaded = msgspec.msgpack.decode(f.read())
     
     print(f"\n验证内容:")
     print(f"  - ID: {loaded['id']}")
