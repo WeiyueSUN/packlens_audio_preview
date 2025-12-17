@@ -9,6 +9,7 @@ dist
 # Archived files (dev notes, test files, scripts)
 archived/
 
-# Build artifacts
+# Build artifacts (copied from root during build)
 packages/vsc/README.md
 packages/vsc/CHANGELOG.md
+packages/vsc/LICENSE
