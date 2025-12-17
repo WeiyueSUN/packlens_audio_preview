@@ -1,4 +1,4 @@
-import { DataType } from "@packlens/common";
+import { DataType } from "@msgpack-audio-viewer/common";
 import { RingBuffer } from "./RingBuffer";
 
 const bufferPageSize = 3;

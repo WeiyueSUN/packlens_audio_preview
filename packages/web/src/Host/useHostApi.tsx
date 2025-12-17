@@ -3,7 +3,7 @@ import {
   RequestInitRead,
   RequestLoadPage,
   requestTypes,
-} from "@packlens/common";
+} from "@msgpack-audio-viewer/common";
 import { clientPrefix } from "../Utils/logger";
 import { HostApiContext } from "./HostApiContext";
 

@@ -1,5 +1,5 @@
 {
-  "name": "@packlens",
+  "name": "@msgpack-audio-viewer",
   "version": "1.0.0",
   "workspaces": [
     "packages/common",

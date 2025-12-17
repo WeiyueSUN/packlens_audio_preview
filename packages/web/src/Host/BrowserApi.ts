@@ -1,4 +1,4 @@
-import { Request, Response, StreamServer } from "@packlens/common";
+import { Request, Response, StreamServer } from "@msgpack-audio-viewer/common";
 import { WebviewApi } from "vscode-webview";
 import { serverPrefix } from "../Utils/logger";
 

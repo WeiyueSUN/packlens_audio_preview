@@ -1,5 +1,5 @@
 {
-  "name": "@packlens/common",
+  "name": "@msgpack-audio-viewer/common",
   "private": true,
   "version": "1.0.0",
   "type": "module",

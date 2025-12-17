@@ -1,11 +1,11 @@
 {
-  "name": "@packlens/web",
+  "name": "@msgpack-audio-viewer/web",
   "private": true,
   "version": "1.0.0",
   "type": "module",
   "repository": {
     "type": "github",
-    "url": "https://github.com/PejmanNik/packlens"
+    "url": "https://github.com/sunweiyue/msgpack-audio-viewer"
   },
   "scripts": {
     "dev": "vite",
@@ -16,10 +16,13 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
-    "@packlens/common": "^1.0.0",
+    "@msgpack-audio-viewer/common": "^1.0.0",
     "@tanstack/react-virtual": "^3.13.6",
     "@vscode-elements/elements": "^1.15.0",
     "@vscode/codicons": "^0.0.36",
+    "@wasm-audio-decoders/flac": "^0.2.9",
+    "@wasm-audio-decoders/ogg-vorbis": "^0.1.19",
+    "mpg123-decoder": "^1.0.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router": "^7.5.3",

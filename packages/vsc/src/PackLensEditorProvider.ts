@@ -5,10 +5,11 @@ import {
   Response,
   MessageMedium,
   StreamServer,
-} from "@packlens/common";
+} from "@msgpack-audio-viewer/common";
 import fs from "node:fs/promises";
 import { getNonce } from "./util";
 import { Readable } from "node:stream";
+import { outputChannel } from "./extension";
 
 class MsgPackDocument extends Disposable implements vscode.CustomDocument {
   public readonly uri: vscode.Uri;
@@ -51,7 +52,7 @@ class MsgPackDocument extends Disposable implements vscode.CustomDocument {
 export class PackLensEditorProvider
   implements vscode.CustomEditorProvider<MsgPackDocument>
 {
-  private static readonly viewType = "packlens.msgpack";
+  private static readonly viewType = "msgpack-audio-viewer.msgpack";
   private readonly context: vscode.ExtensionContext;
   private readonly _onDidChangeCustomDocument = new vscode.EventEmitter<
     vscode.CustomDocumentEditEvent<MsgPackDocument>
@@ -116,7 +117,25 @@ export class PackLensEditorProvider
       enableScripts: true,
     };
     webviewPanel.webview.html = this.getHtmlForWebview(webviewPanel.webview);
-    webviewPanel.webview.onDidReceiveMessage((e) =>
+    
+    // 添加日志输出
+    outputChannel.appendLine(`\n📂 打开文件: ${document.uri.fsPath}`);
+    outputChannel.appendLine('─'.repeat(50));
+    
+    webviewPanel.webview.onDidReceiveMessage((e) => {
+      // 处理日志消息
+      if (e.type === 'log') {
+        const { level, message, data } = e;
+        const timestamp = new Date().toLocaleTimeString();
+        const prefix = level === 'error' ? '❌' : level === 'warn' ? '⚠️' : level === 'success' ? '✅' : 'ℹ️';
+        outputChannel.appendLine(`[${timestamp}] ${prefix} ${message}`);
+        if (data) {
+          outputChannel.appendLine(`  ${JSON.stringify(data, null, 2)}`);
+        }
+        return;
+      }
+      
+      // 原有的消息处理
       document.onDidReceiveMessage(e, {
         postMessage: (response: Response) => {
           if (!response.body.ok) {
@@ -130,8 +149,8 @@ export class PackLensEditorProvider
           }
           webviewPanel.webview.postMessage(response);
         },
-      }),
-    );
+      });
+    });
   }
 
   private getHtmlForWebview(webview: vscode.Webview): string {
@@ -157,7 +176,7 @@ export class PackLensEditorProvider
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline' ${webview.cspSource}; script-src 'nonce-${nonce}'; font-src ${webview.cspSource};">
+            <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src ${webview.cspSource} data: blob:; style-src 'unsafe-inline' ${webview.cspSource}; script-src 'wasm-unsafe-eval' 'nonce-${nonce}'; font-src ${webview.cspSource}; connect-src ${webview.cspSource} data: blob:;">
             <link rel="stylesheet" href="${iconUri}" id="vscode-codicon-stylesheet">
             <link rel="stylesheet" crossorigin href="${styleUri}">
             <title>Message Pack Lens</title>

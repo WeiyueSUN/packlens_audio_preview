@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import styled from "@emotion/styled";
-import { Response } from "@packlens/common";
+import { Response } from "@msgpack-audio-viewer/common";
 import { useHostApi } from "../Host/useHostApi";
 import { StateType } from "../Host/HostApiContext";
 import { PageState } from "../Host/PageState";
 import { clientPrefix } from "../Utils/logger";
+import { vscodeLogger } from "../Utils/vscodeLogger";
 import RowList from "./RowList";
 import Searchbox from "./Searchbox";
 import { PageLoader } from "./PageLoader";
@@ -50,6 +51,9 @@ export default function Viewer() {
 
   // Host message handler
   useEffect(() => {
+    vscodeLogger.info('[Viewer] 开始加载数据...');
+    vscodeLogger.info(`[Viewer] 页大小: ${pageSize}`);
+    
     const callback = (event: MessageEvent<Response>) => {
       if (
         event.data.type != "init_read_response" &&
@@ -60,13 +64,18 @@ export default function Viewer() {
 
       const body = event.data.body;
       console.debug(clientPrefix, "server response", body);
+      vscodeLogger.info(`[Viewer] 收到响应: ${event.data.type}`);
 
       if (body.ok == false) {
         console.error(clientPrefix, "error in server response", body.error);
+        vscodeLogger.error(`[Viewer] 服务器错误: ${JSON.stringify(body.error)}`);
         return;
       }
 
       if (event.data.type == "init_read_response") {
+        vscodeLogger.success(`[Viewer] 初始化完成: ${body.value.totalEntities} 个实体`);
+        vscodeLogger.info(`[Viewer] 第一页数据: ${body.value.data.length} 条`);
+        
         setReaderState({
           totalEntities: body.value.totalEntities,
           totalDecodedEntities: body.value.totalDecodedEntities,
@@ -79,6 +88,8 @@ export default function Viewer() {
           ),
         });
       } else {
+        vscodeLogger.info(`[Viewer] 加载第 ${body.value.pageNumber} 页: ${body.value.data.length} 条`);
+        
         setReaderState((prevState) => ({
           totalEntities: body.value.totalEntities,
           totalDecodedEntities: body.value.totalDecodedEntities,

@@ -1,7 +1,7 @@
 {
-  "name": "packlens",
-  "displayName": "PackLens",
-  "description": "Decode and search within a Message Pack encoded binary file",
+  "name": "msgpack-audio-viewer",
+  "displayName": "MsgPack Audio Viewer",
+  "description": "Decode and search within MessagePack files with built-in audio preview support",
   "version": "1.0.0",
   "engines": {
     "vscode": "^1.99.0"
@@ -16,12 +16,15 @@
     "decode",
     "message pack",
     "deserialize",
-    "msmspack"
+    "msgpack",
+    "audio",
+    "audio preview",
+    "wasm"
   ],
-  "publisher": "pejmannikram",
+  "publisher": "sunweiyue",
   "repository": {
     "type": "git",
-    "url": "https://github.com/PejmanNik/packlens"
+    "url": "https://github.com/sunweiyue/msgpack-audio-viewer"
   },
   "icon": "icon.png",
   "license": "MIT",
@@ -30,8 +33,8 @@
   "contributes": {
     "customEditors": [
       {
-        "viewType": "packlens.msgpack",
-        "displayName": "Message Pack",
+        "viewType": "msgpack-audio-viewer.msgpack",
+        "displayName": "MsgPack Audio Viewer",
         "selector": [
           {
             "filenamePattern": "*.msgpack"
@@ -68,6 +71,6 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
-    "@packlens/common": "^1.0.0"
+    "@msgpack-audio-viewer/common": "^1.0.0"
   }
 }
